@@ -2,6 +2,14 @@
 # Test the factorial() function.
 #
 import demo
+import pytest
+
+
+#
+# Check valid inputs.
+#
+def test_fact_0():
+    assert demo.factorial(0) == 1
 
 
 def test_fact_1():
@@ -36,3 +44,11 @@ def test_fact_40():
 def test_fact_50():
     assert demo.factorial(50) == \
         30414093201713378043612608166064768844377641568960512000000000000
+
+
+#
+# Invalid input: exception is expected.
+#
+def test_fact_minus1():
+    with pytest.raises(Exception):
+        assert demo.factorial(-1)
