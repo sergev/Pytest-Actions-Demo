@@ -50,5 +50,5 @@ def test_fact_50():
 # Invalid input: exception is expected.
 #
 def test_fact_minus1():
-    with pytest.raises(Exception):
-        assert demo.factorial(-1)
+    with pytest.raises(ValueError, match="Negative input"):
+        demo.factorial(-1)
