@@ -3,6 +3,7 @@
 #
 import demo
 import pytest
+import math
 
 
 #
@@ -52,3 +53,41 @@ def test_fact_50():
 def test_fact_minus1():
     with pytest.raises(Exception):
         assert demo.factorial(-1)
+#
+# Invalid input: check the error message and a larger negative value.
+#
+
+
+def test_fact_minus1_message():
+    with pytest.raises(Exception, match="Negative input"):
+        demo.factorial(-1)
+
+
+def test_fact_minus100():
+    with pytest.raises(Exception, match="Negative input"):
+        demo.factorial(-100)
+
+
+#
+# Cross-check against the standard library, including boundaries 0 and 1.
+#
+@pytest.mark.parametrize("n", [0, 1, 2, 5, 25, 100, 500])
+def test_fact_matches_math_module(n):
+    assert demo.factorial(n) == math.factorial(n)
+
+
+#
+# Non-numeric input is not supported: expect TypeError.
+#
+@pytest.mark.parametrize("bad", ["a", None])
+def test_fact_non_numeric(bad):
+    with pytest.raises(TypeError):
+        demo.factorial(bad)
+
+
+#
+# Known limitation: recursion overflows for very large inputs.
+#
+def test_fact_too_deep_for_recursion():
+    with pytest.raises(RuntimeError):
+        demo.factorial(10000)
