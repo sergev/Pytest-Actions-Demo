@@ -52,3 +52,14 @@ def test_fact_50():
 def test_fact_minus1():
     with pytest.raises(Exception):
         assert demo.factorial(-1)
+        
+def test_fact_5():
+    assert demo.factorial(5) == 120
+
+
+def test_fact_6():
+    assert demo.factorial(6) == 720
+
+
+def test_fact_boundary():
+    assert demo.factorial(0) == 1
